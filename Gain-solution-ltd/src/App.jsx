@@ -1,9 +1,11 @@
 import React from 'react'
+import KanbanPage from './Pages/KanbanPage'
+
 
 const App = () => {
   return (
     <div>
-      <h1 className='text-center font-bold text-red-400'>Project initial done</h1>
+      <KanbanPage/>
     </div>
   )
 }
