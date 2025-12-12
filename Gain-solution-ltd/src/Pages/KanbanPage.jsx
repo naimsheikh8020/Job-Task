@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Navbar from "../Components/Kanban_Board/Navbar";
 import KanbanColumn from "../Components/Kanban_Board/KanbanColumn";
-import ListViewPage from "./ListViewPage";
 import boardData from "../assets/data";
+import TaskDrawer from "./TaskDrawer";
 
 const KanbanPage = () => {
   const [selectedTask, setSelectedTask] = useState(null);
@@ -14,12 +14,7 @@ const KanbanPage = () => {
   const handleTaskClick = (task) => setSelectedTask(task);
   const handleBack = () => setSelectedTask(null);
 
-  /**
-   * ✅ FIXED FILTER LOGIC
-   * - Single source of truth (boardData)
-   * - No conditional rendering
-   * - "All" properly resets
-   */
+
   const filteredBoard = boardData
     .filter((column) => {
       if (columnFilter === "all") return true;
@@ -61,7 +56,7 @@ const KanbanPage = () => {
       />
 
       {selectedTask ? (
-        <ListViewPage task={selectedTask} onBack={handleBack} />
+        <TaskDrawer task={selectedTask} onBack={handleBack} />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 p-4">
           {filteredBoard.map((column) => (

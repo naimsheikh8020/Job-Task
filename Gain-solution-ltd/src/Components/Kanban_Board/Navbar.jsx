@@ -136,9 +136,6 @@ const Navbar = ({
                       const value = e.target.value;
 
                       setPriorityFilter(value);
-
-                      // 🔥 IMPORTANT FIX
-                      // When user selects "All", clear search so full board shows
                       if (value === "all") {
                         setSearchQuery("");
                       }
