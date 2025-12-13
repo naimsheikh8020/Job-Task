@@ -3,9 +3,12 @@ import Navbar from "../Components/Kanban_Board/Navbar";
 import KanbanColumn from "../Components/Kanban_Board/KanbanColumn";
 import boardData from "../assets/data";
 import TaskDrawer from "./TaskDrawer";
+import NavbarFroTaskListView from "../Components/Task_List_View/NavbarFroTaskListView";
+import ListViewPage from "./ListViewPage";
 
 const KanbanPage = () => {
   const [selectedTask, setSelectedTask] = useState(null);
+  const [viewMode, setViewMode] = useState("kanban"); // 🔑
 
   const [searchQuery, setSearchQuery] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -13,7 +16,6 @@ const KanbanPage = () => {
 
   const handleTaskClick = (task) => setSelectedTask(task);
   const handleBack = () => setSelectedTask(null);
-
 
   const filteredBoard = boardData
     .filter((column) => {
@@ -24,39 +26,47 @@ const KanbanPage = () => {
       const tasks = column.tasks.filter((task) => {
         const q = searchQuery.trim().toLowerCase();
 
-        // Check if task matches search query (if any)
         const matchesSearch =
           !q ||
-          (task.title && task.title.toLowerCase().includes(q)) ||
-          (task.details && task.details.toLowerCase().includes(q)) ||
-          (task.assignee && task.assignee.toLowerCase().includes(q)) ||
-          (task.labels && task.labels.join(" ").toLowerCase().includes(q)) ||
-          (task.status && task.status.toLowerCase().includes(q));
+          task.title?.toLowerCase().includes(q) ||
+          task.details?.toLowerCase().includes(q) ||
+          task.assignee?.toLowerCase().includes(q) ||
+          task.labels?.join(" ").toLowerCase().includes(q) ||
+          task.status?.toLowerCase().includes(q);
 
-        // Check if task matches priority filter
         const matchesPriority =
           priorityFilter === "all" ||
-          (task.priority && task.priority.toLowerCase() === priorityFilter.toLowerCase());
+          task.priority?.toLowerCase() === priorityFilter;
 
         return matchesSearch && matchesPriority;
       });
 
-      return {
-        ...column,
-        tasks,
-      };
+      return { ...column, tasks };
     });
 
   return (
     <div>
-      <Navbar
-        setSearchQuery={setSearchQuery}
-        setPriorityFilter={setPriorityFilter}
-        setColumnFilter={setColumnFilter}
-      />
-
+      {/* NAVBAR */}
       {selectedTask ? (
-        <TaskDrawer task={selectedTask} onBack={handleBack} />
+        <NavbarFroTaskListView
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+        />
+      ) : (
+        <Navbar
+          setSearchQuery={setSearchQuery}
+          setPriorityFilter={setPriorityFilter}
+          setColumnFilter={setColumnFilter}
+        />
+      )}
+
+      {/* CONTENT */}
+      {selectedTask ? (
+        viewMode === "list" ? (
+          <ListViewPage />
+        ) : (
+          <TaskDrawer task={selectedTask} onBack={handleBack} />
+        )
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 p-4">
           {filteredBoard.map((column) => (

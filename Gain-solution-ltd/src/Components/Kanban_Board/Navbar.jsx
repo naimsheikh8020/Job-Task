@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 
-/* ---------------- DROPDOWN ---------------- */
 const Dropdown = ({ open, onClose, children }) => {
   useEffect(() => {
     const handler = (e) => {
@@ -24,7 +23,6 @@ const Dropdown = ({ open, onClose, children }) => {
   );
 };
 
-/* ---------------- MODAL ---------------- */
 const Modal = ({ open, onClose, children }) => {
   if (!open) return null;
 
