@@ -12,6 +12,7 @@ The application uses static mock data and focuses on clean component structure, 
 - [Usage](#usage)
 - [Layout Decisions](#layout-decisions)
 - [Responsiveness](#responsiveness)
+- [Wireframe to React Mapping](#wireframe-to-react-mapping)
 - [Components](#components)
 
 ## Features
@@ -151,6 +152,53 @@ Responsiveness is implemented using Tailwind CSS responsive utility classes, wit
 
 This approach keeps responsive behavior predictable, readable, and easy to maintain.
 
+## Wireframe to React Mapping
+
+### How the Wireframe Was Translated into React + Tailwind
+
+Before writing code, the wireframe was broken down into clear, reusable components that align with React principles.
+
+### Mapping Approach:
+
+1. **Component Breakdown**: Each wireframe section was translated into a React component
+   - Navigation area → `Navbar` component
+   - Status columns → `KanbanColumn` component
+   - Task cards → Individual task card components
+   - Task details panel → `TaskDrawer` with `TaskMain` and `TaskSidebar`
+   - Comments section → `TaskComments` and `TaskCommentsInput` components
+
+2. **Consistent Patterns**: Repeated UI patterns follow consistent spacing and styling
+   - Input fields, buttons, and cards use standardized Tailwind classes
+   - Consistent padding, margins, and border-radius across all components
+   - Color scheme applied uniformly throughout the interface
+
+3. **Tailwind Implementation**: Tailwind utility classes were used directly to match wireframe specifications
+   - Spacing and alignment precisely follow the wireframe layout
+   - Responsive utilities handle different screen sizes without custom CSS
+   - Flexbox and Grid layouts replicate wireframe structure
+
+4. **No External UI Libraries**: The design was built from scratch using only React and Tailwind
+   - Custom components provide full control over behavior and styling
+   - Easy to customize and extend based on future requirements
+   - Lightweight and performant without external dependencies
+
+5. **Reusable Component Structure**: The final architecture closely mirrors the wireframe while maintaining modularity
+   - Components are self-contained and easy to test
+   - Props-based customization allows flexibility
+   - Hooks manage state and side effects cleanly
+
+### Key Design Translations:
+
+| Wireframe Element | React Component | Tailwind Approach |
+|---|---|---|
+| Navigation bar | `Navbar`, `NavbarDesktop`, `NavbarMobile` | Flexbox with responsive breakpoints |
+| Kanban columns | `KanbanColumn` | Grid layout with horizontal scroll on mobile |
+| Task cards | Task card elements | Card styling with shadow and hover effects |
+| Task details drawer | `TaskDrawer`, `TaskMain`, `TaskSidebar` | 2-column grid (desktop) / 1-column (mobile) |
+| Comments section | `TaskComments`, `TaskCommentsInput` | Stacked layout with list styling |
+| Activity log | `TaskActivity` | Timeline-style list |
+| Modal forms | `AddTaskModal` | Overlay with centered content |
+
 ## Components
 
 ### Kanban Board Components
@@ -178,75 +226,3 @@ Feel free to submit issues and enhancement requests!
 ## License
 
 This project is part of the Gain Solution Ltd task management system.
-
-Before writing code, the wireframe was broken down into clear, reusable components.
-
-Mapping approach:
-
-Each wireframe section was translated into a React component (Navbar, Column, Task Card, Drawer, Sidebar)
-
-Repeated UI patterns (inputs, buttons, cards) follow consistent spacing and styling
-
-Tailwind utility classes were used directly to match spacing, alignment, and layout from the wireframe
-
-No UI libraries or prebuilt templates were used
-
-The final structure closely mirrors the wireframe while keeping components reusable and easy to extend.
-
-How to Run the Project
-Prerequisites
-
-Node.js (v16 or later recommended)
-
-npm or yarn
-
-Steps
-
-Install dependencies:
-
-npm install
-
-
-or
-
-yarn install
-
-
-Start the development server:
-
-npm run dev
-
-
-or
-
-yarn dev
-
-
-Open the application in your browser:
-
-http://localhost:5173
-
-
-(Port may vary depending on the setup.)
-
-Tech Stack
-
-React.js (Functional Components)
-
-Tailwind CSS
-
-Static mock data (no API calls)
-
-No UI libraries or external frameworks
-
-Notes
-
-This project focuses on:
-
-Clean component structure
-
-Predictable state management
-
-Responsive layout using Tailwind utilities
-
-Translating a wireframe into production-ready React components
