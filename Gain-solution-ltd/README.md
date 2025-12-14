@@ -3,6 +3,8 @@
 A responsive task management interface built with React.js and Tailwind CSS, based on a provided low-fidelity wireframe.
 The application uses static mock data and focuses on clean component structure, predictable state management, and responsive layout behavior.
 
+🔗 **[Live Demo](https://gain-solutions-limited-job-task-naim-sheikh.vercel.app/)**
+
 ## Table of Contents
 
 - [Features](#features)
