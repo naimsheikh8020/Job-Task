@@ -80,7 +80,7 @@ git clone <repository-url>
 
 2. Navigate to the project directory:
 ```bash
-cd GAIN-SOLUTION-LTD
+cd Gain-solution-ltd
 ```
 
 3. Install dependencies:
@@ -219,10 +219,3 @@ Before writing code, the wireframe was broken down into clear, reusable componen
 - `NavbarMobile` - Mobile navigation
 - `NavbarFroTaskListView` - List view navigation
 
-## Contributing
-
-Feel free to submit issues and enhancement requests!
-
-## License
-
-This project is part of the Gain Solution Ltd task management system.
