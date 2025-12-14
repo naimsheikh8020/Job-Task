@@ -26,12 +26,6 @@ The application uses static mock data and focuses on clean component structure, 
 📝 **Comments & Activity**: Add comments and view task activity history
 🎨 **Clean UI**: Built with Tailwind CSS for a modern, polished interface
 
-## Tech Stack
-
-- **React** - UI library
-- **Vite** - Build tool and dev server
-- **Tailwind CSS** - Utility-first CSS framework
-- **JavaScript** - Core language
 
 ## Project Structure
 
