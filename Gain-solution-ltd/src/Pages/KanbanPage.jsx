@@ -8,7 +8,7 @@ import ListViewPage from "./ListViewPage";
 
 const KanbanPage = () => {
   const [selectedTask, setSelectedTask] = useState(null);
-  const [viewMode, setViewMode] = useState("kanban"); // 🔑
+  const [viewMode, setViewMode] = useState("kanban");
 
   const [searchQuery, setSearchQuery] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("all");
@@ -36,7 +36,7 @@ const KanbanPage = () => {
 
         const matchesPriority =
           priorityFilter === "all" ||
-          task.priority?.toLowerCase() === priorityFilter;
+          task.priority === priorityFilter;
 
         return matchesSearch && matchesPriority;
       });
@@ -46,11 +46,13 @@ const KanbanPage = () => {
 
   return (
     <div>
-      {/* NAVBAR */}
+
       {selectedTask ? (
         <NavbarFroTaskListView
           viewMode={viewMode}
           setViewMode={setViewMode}
+          priority={priorityFilter}
+          setPriority={setPriorityFilter}
         />
       ) : (
         <Navbar
@@ -60,15 +62,14 @@ const KanbanPage = () => {
         />
       )}
 
-      {/* CONTENT */}
       {selectedTask ? (
         viewMode === "list" ? (
-          <ListViewPage />
+          <ListViewPage boardData={filteredBoard} />
         ) : (
           <TaskDrawer task={selectedTask} onBack={handleBack} />
         )
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 p-4">
+        <div className=" flex gap-4 p-4 sm:grid sm:grid-cols-2  overflow-x-auto xl:grid-cols-4 sm:overflow-visible ">
           {filteredBoard.map((column) => (
             <KanbanColumn
               key={column.id}

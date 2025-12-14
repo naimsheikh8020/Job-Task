@@ -1,183 +1,107 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu } from "lucide-react";
+import MobileDrawer from "./MobileDrawer";
 
-const Dropdown = ({ open, onClose, children }) => {
-  useEffect(() => {
-    const handler = (e) => {
-      if (!e.target.closest(".dropdown-box")) onClose();
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [onClose]);
+const controlClass =
+  "px-4 py-2 text-sm rounded bg-white border border-gray-200 focus:outline-none focus:border-gray-300";
 
-  if (!open) return null;
-
-  return (
-    <div
-      className="absolute right-0 mt-2 bg-white border border-gray-300 
-      rounded-md shadow-lg min-w-[180px] z-50 dropdown-box"
-      onClick={(e) => e.stopPropagation()}
-    >
-      {children}
-    </div>
-  );
-};
-
-const Modal = ({ open, onClose, children }) => {
-  if (!open) return null;
-
-  return (
-    <div
-      className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center"
-      onClick={onClose}
-    >
-      <div
-        className="bg-white rounded-lg p-6 w-[430px] relative"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500"
-        >
-          ✕
-        </button>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-/* ---------------- NAVBAR ---------------- */
-const Navbar = ({
-  setSearchQuery,
-  setPriorityFilter,
-  setColumnFilter,
-}) => {
-  const [showProject, setShowProject] = useState(false);
-  const [showFilter, setShowFilter] = useState(false);
-  const [openTaskModal, setOpenTaskModal] = useState(false);
+const Navbar = ({ setSearchQuery, setPriorityFilter, setColumnFilter }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
-      <div className="bg-gray-100 border-b border-gray-300 py-3 relative">
-        <div className="px-4 flex items-center justify-between relative">
-          {/* LEFT */}
+      <div className="bg-gray-100 border-b border-gray-200 py-3 px-4">
+        <div className="flex items-center justify-between relative">
           <div className="flex items-center gap-3">
-            <div className="px-4 py-2 border bg-white">Logo</div>
-            <p className="font-medium">Board Title</p>
+            <div className="px-4 py-2 border border-gray-200 bg-white rounded">
+              Logo
+            </div>
+            <p className="font-medium text-gray-700">Board Title</p>
           </div>
 
-          {/* CENTER */}
-          <p className="hidden xl:block absolute left-1/2 -translate-x-1/2 font-medium">
+          <p className="hidden xl:block absolute left-1/2 -translate-x-1/2 font-medium text-gray-600">
             Kanban Board - Header
           </p>
 
-          {/* RIGHT */}
           <div className="hidden xl:flex items-center gap-3">
-            {/* PROJECT */}
-            <div className="relative">
-              <button
-                onClick={() => setShowProject((p) => !p)}
-                className="px-4 py-2 border bg-white text-sm"
-              >
-                Project ▼
-              </button>
+            <select
+              defaultValue=""
+              onChange={(e) => setColumnFilter(e.target.value)}
+              className={controlClass}
+            >
+              <option value="" disabled>
+                Project
+              </option>
+              <option value="all">All</option>
+              <option value="backlog">Backlog</option>
+              <option value="in-progress">In Progress</option>
+              <option value="review">Review</option>
+              <option value="done">Done</option>
+            </select>
 
-              <Dropdown
-                open={showProject}
-                onClose={() => setShowProject(false)}
-              >
-                {[
-                  { label: "All", value: "all" },
-                  { label: "Backlog", value: "backlog" },
-                  { label: "In Progress", value: "in-progress" },
-                  { label: "Review", value: "review" },
-                  { label: "Done", value: "done" },
-                ].map((item) => (
-                  <div
-                    key={item.value}
-                    onClick={() => {
-                      setColumnFilter(item.value);
-                      setShowProject(false);
-                    }}
-                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer text-sm"
-                  >
-                    {item.label}
-                  </div>
-                ))}
-              </Dropdown>
-            </div>
-
-            {/* SEARCH */}
             <input
               type="text"
-              placeholder="Search tasks..."
+              placeholder="Search"
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-3 py-2 border bg-white rounded text-sm w-40"
+              className={`${controlClass} w-40`}
             />
 
-            {/* FILTER */}
-            <div className="relative">
-              <button
-                onClick={() => setShowFilter((p) => !p)}
-                className="px-4 py-2 border bg-white text-sm"
-              >
-                Filter
-              </button>
-
-              <Dropdown open={showFilter} onClose={() => setShowFilter(false)}>
-                <div className="p-3">
-                  <p className="font-medium mb-2">Priority</p>
-                  <select
-                    defaultValue="all"
-                    onChange={(e) => {
-                      const value = e.target.value;
-
-                      setPriorityFilter(value);
-                      if (value === "all") {
-                        setSearchQuery("");
-                      }
-
-                      setShowFilter(false);
-                    }}
-                  >
-                    <option value="all">All</option>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                  </select>
-                </div>
-              </Dropdown>
-            </div>
-
-            {/* NEW TASK */}
-            <button
-              onClick={() => setOpenTaskModal(true)}
-              className="px-4 py-2 border bg-white text-sm"
+            <select
+              defaultValue="all"
+              onChange={(e) => setPriorityFilter(e.target.value)}
+              className={controlClass}
             >
-              New Task
-            </button>
+              <option value="all">All Priority</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+
+            <button className={controlClass}>New Task</button>
           </div>
 
-          {/* MOBILE ICON */}
-          <button className="xl:hidden p-2 border bg-white">
+          <button
+            onClick={() => setDrawerOpen(true)}
+            className="xl:hidden p-2 border border-gray-200 bg-white rounded"
+          >
             <Menu size={18} />
           </button>
         </div>
       </div>
 
-      {/* NEW TASK MODAL */}
-      <Modal open={openTaskModal} onClose={() => setOpenTaskModal(false)}>
-        <h2 className="text-lg font-semibold mb-4">Create New Task</h2>
-        <input className="w-full p-2 border rounded mb-3" placeholder="Title" />
-        <textarea
-          className="w-full p-2 border rounded mb-3"
-          placeholder="Details"
+      <MobileDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <select
+          defaultValue=""
+          onChange={(e) => setColumnFilter(e.target.value)}
+          className={`w-full ${controlClass}`}
+        >
+          <option value="" disabled>
+            Project
+          </option>
+          <option value="all">All</option>
+          <option value="backlog">Backlog</option>
+          <option value="in-progress">In Progress</option>
+          <option value="review">Review</option>
+          <option value="done">Done</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Search"
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className={`w-full ${controlClass}`}
         />
-        <button className="w-full bg-blue-600 text-white py-2 rounded">
-          Create Task
-        </button>
-      </Modal>
+        <select
+          defaultValue="all"
+          onChange={(e) => setPriorityFilter(e.target.value)}
+          className={`w-full ${controlClass}`}
+        >
+          <option value="all">All Priority</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <button className={`w-full ${controlClass}`}>New Task</button>
+      </MobileDrawer>
     </>
   );
 };
