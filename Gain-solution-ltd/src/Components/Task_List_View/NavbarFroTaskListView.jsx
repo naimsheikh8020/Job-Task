@@ -1,31 +1,38 @@
-import React from "react";
 import Button from "../Button/Button";
+import { controlClass } from "../Kanban_Board/Navbar";
 
 const NavbarFroTaskListView = ({
   viewMode,
   setViewMode,
   priority,
   setPriority,
+  setSearchQuery,
+  onAddTask, // ✅ NEW
 }) => {
   return (
     <>
       <div className="border-b border-gray-300 bg-gray-100">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4">
-          <Button text="Add task" />
+          {/* ✅ Add task now works */}
+          <Button text="Add task" onClick={onAddTask} />
 
           <span className="text-center text-base sm:text-lg font-semibold text-gray-600">
             Tasks - Top Bar
           </span>
 
           <div className="flex justify-center sm:justify-end gap-2">
-            <Button text="Search" />
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={`${controlClass} w-40`}
+            />
             <Button text="Bell" />
             <Button text="User" />
           </div>
         </div>
       </div>
 
-      {/* FILTER BAR */}
       <div className="flex flex-col sm:flex-row sm:justify-end gap-3 px-4 sm:px-6 py-3">
         <select
           value={viewMode}

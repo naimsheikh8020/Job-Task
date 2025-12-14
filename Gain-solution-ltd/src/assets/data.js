@@ -1,3 +1,5 @@
+import { ASSIGNEES } from "./assignees";
+
 const boardData = [
   {
     id: "backlog",
@@ -11,7 +13,12 @@ const boardData = [
         comments: {
           input: "",
           list: [
-            { id: "c1", author: "Naim", text: "Need backend endpoint first.", time: "2025-01-01" },
+            {
+              id: "c1",
+              author: "Naim",
+              text: "Need backend endpoint first.",
+              time: "2025-01-01",
+            },
           ],
         },
         activityLog: [
@@ -20,7 +27,7 @@ const boardData = [
         ],
         status: "backlog",
         priority: "high",
-        assignee: "Unassigned",
+        assignee: ASSIGNEES.Unassigned,
         dueDate: "2025-01-15",
         labels: ["auth", "backend"],
         estimate: "8h",
@@ -34,7 +41,7 @@ const boardData = [
         activityLog: [{ id: "a3", action: "Added to backlog", time: "2024-12-30" }],
         status: "backlog",
         priority: "medium",
-        assignee: "Naim",
+        assignee: ASSIGNEES.Naim,
         dueDate: "2025-01-20",
         labels: ["frontend", "ui"],
         estimate: "6h",
@@ -48,7 +55,7 @@ const boardData = [
         activityLog: [{ id: "a4", action: "Created", time: "2024-12-27" }],
         status: "backlog",
         priority: "low",
-        assignee: "Unassigned",
+        assignee: ASSIGNEES.Unassigned,
         dueDate: "2025-02-01",
         labels: ["system", "improvement"],
         estimate: "4h",
@@ -62,7 +69,7 @@ const boardData = [
         activityLog: [{ id: "a5", action: "Added to backlog", time: "2024-12-29" }],
         status: "backlog",
         priority: "high",
-        assignee: "DevOps Team",
+        assignee: ASSIGNEES["DevOps Team"],
         dueDate: "2025-01-25",
         labels: ["devops"],
         estimate: "10h",
@@ -86,7 +93,7 @@ const boardData = [
         ],
         status: "in-progress",
         priority: "high",
-        assignee: "Naim",
+        assignee: ASSIGNEES.Naim,
         dueDate: "2025-01-10",
         labels: ["analytics", "frontend"],
         estimate: "12h",
@@ -100,7 +107,7 @@ const boardData = [
         activityLog: [{ id: "a8", action: "Refactor started", time: "2025-01-02" }],
         status: "in-progress",
         priority: "medium",
-        assignee: "Sarah",
+        assignee: ASSIGNEES.Sarah,
         dueDate: "2025-01-12",
         labels: ["refactor", "zustand"],
         estimate: "5h",
@@ -114,7 +121,7 @@ const boardData = [
         activityLog: [{ id: "a9", action: "In progress", time: "2025-01-03" }],
         status: "in-progress",
         priority: "medium",
-        assignee: "John",
+        assignee: ASSIGNEES.John,
         dueDate: "2025-01-18",
         labels: ["notifications"],
         estimate: "7h",
@@ -132,12 +139,10 @@ const boardData = [
         details:
           "Optimize layout for mobile screens, fix overflow bugs, adjust spacing, and improve touch interactions.",
         comments: { input: "", list: [] },
-        activityLog: [
-          { id: "a10", action: "PR submitted", time: "2025-01-01" },
-        ],
+        activityLog: [{ id: "a10", action: "PR submitted", time: "2025-01-01" }],
         status: "review",
         priority: "high",
-        assignee: "Naim",
+        assignee: ASSIGNEES.Naim,
         dueDate: "2025-01-06",
         labels: ["responsive", "ui"],
         estimate: "3h",
@@ -148,12 +153,10 @@ const boardData = [
         details:
           "Reduce load times by adding caching, compressing payloads, and modifying slow SQL queries.",
         comments: { input: "", list: [] },
-        activityLog: [
-          { id: "a11", action: "Waiting for review", time: "2025-01-03" },
-        ],
+        activityLog: [{ id: "a11", action: "Waiting for review", time: "2025-01-03" }],
         status: "review",
         priority: "high",
-        assignee: "Backend Team",
+        assignee: ASSIGNEES["Backend Team"],
         dueDate: "2025-01-09",
         labels: ["api", "performance"],
         estimate: "9h",
@@ -174,7 +177,7 @@ const boardData = [
         activityLog: [{ id: "a12", action: "Completed", time: "2024-12-27" }],
         status: "done",
         priority: "medium",
-        assignee: "Naim",
+        assignee: ASSIGNEES.Naim,
         dueDate: "2024-12-20",
         labels: ["theme"],
         estimate: "4h",
@@ -188,7 +191,7 @@ const boardData = [
         activityLog: [{ id: "a13", action: "Completed", time: "2024-12-28" }],
         status: "done",
         priority: "high",
-        assignee: "Sarah",
+        assignee: ASSIGNEES.Sarah,
         dueDate: "2024-12-22",
         labels: ["bugfix"],
         estimate: "2h",
@@ -202,7 +205,7 @@ const boardData = [
         activityLog: [{ id: "a14", action: "Done", time: "2024-12-25" }],
         status: "done",
         priority: "low",
-        assignee: "John",
+        assignee: ASSIGNEES.John,
         dueDate: "2024-12-18",
         labels: ["setup"],
         estimate: "3h",
@@ -216,7 +219,7 @@ const boardData = [
         activityLog: [{ id: "a15", action: "Done", time: "2024-12-21" }],
         status: "done",
         priority: "medium",
-        assignee: "Naim",
+        assignee: ASSIGNEES.Naim,
         dueDate: "2024-12-15",
         labels: ["ui", "frontend"],
         estimate: "6h",
@@ -230,7 +233,7 @@ const boardData = [
         activityLog: [{ id: "a16", action: "Done", time: "2024-12-29" }],
         status: "done",
         priority: "high",
-        assignee: "Backend Team",
+        assignee: ASSIGNEES["Backend Team"],
         dueDate: "2024-12-28",
         labels: ["webhook"],
         estimate: "5h",
@@ -238,4 +241,5 @@ const boardData = [
     ],
   },
 ];
-export default boardData
+
+export default boardData;
